@@ -17,15 +17,30 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
+// 递归法
+// var preorderTraversal = function(root) {
+//     function traverse(node, result) {
+//         if (!node) return result
+//         result.push(node.val)
+//         result = traverse(node.left, result)
+//         result = traverse(node.right, result)
+//         return result
+//     }
+//     return traverse(root, [])
+// };
+// 迭代法
 var preorderTraversal = function(root) {
-    function traverse(node, result) {
-        if (!node) return result
-        result.push(node.val)
-        result = traverse(node.left, result)
-        result = traverse(node.right, result)
-        return result
+    const stack = [root]
+    const result = []
+    if (!root) return []
+    while (stack.length) {
+        const curNode = stack.pop() 
+        result.push(curNode.val)
+        if (curNode.right) stack.push(curNode.right)
+        if (curNode.left) stack.push(curNode.left)
     }
-    return traverse(root, [])
+    return result
 };
+
 // @lc code=end
 
