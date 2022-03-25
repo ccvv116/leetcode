@@ -17,7 +17,27 @@
  * @param {TreeNode} root
  * @return {number[][]}
  */
+// 迭代法 层序遍历 广度遍历
 var levelOrder = function(root) {
+    if (!root) return []
+    const stack = [root]
+    const result = []
+    while (stack.length) {
+        const size = stack.length
+        const curLevel = []
+        for(let i = 0; i < size; i++) {
+            // 头出尾进
+            const curNode = stack.shift()
+            curLevel.push(curNode.val)
+            if(curNode.left) stack.push(curNode.left)
+            if(curNode.right) stack.push(curNode.right)     
+        }
+        result.push(curLevel)
+    }
+    return result
+};
+// 递归法 前序
+var levelOrder2 = function(root) {
     if (!root) return []
     function traverse(node, level, res) {
         if (!node) return res
@@ -30,5 +50,6 @@ var levelOrder = function(root) {
     }
     return traverse(root, 0, [])
 };
+
 // @lc code=end
 
