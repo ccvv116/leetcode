@@ -17,7 +17,9 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var maxDepth = function(root) {
+
+// 递归
+var maxDepth2 = function(root) {
     if (!root) return 0
     function traverseDeepth (node, deepth) {
         deepth = deepth + 1
@@ -27,6 +29,24 @@ var maxDepth = function(root) {
         if (node.right && node.left) return Math.max(traverseDeepth(node.left, deepth), traverseDeepth(node.right, deepth))
     }
     return traverseDeepth(root, 0)
+};
+// 层序遍历
+var maxDepth = function(root) {
+    if (!root) return 0
+    let stack = [root]
+    let count = 0
+    while(stack.length) {
+        const size = stack.length
+        const temp = []
+        count++
+        for(let i = 0; i < size; i++) {
+            const node = stack.pop()
+            if(node.left) temp.push(node.left)
+            if(node.right) temp.push(node.right)
+        }
+        stack = temp
+    }
+    return count
 };
 // @lc code=end
 
