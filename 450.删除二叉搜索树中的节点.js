@@ -19,54 +19,39 @@
  * @return {TreeNode}
  */
 var deleteNode = function(root, key) {
-    let keyNode = null
-    const stack = [root]
-    let pre = null
-    while(stack.length) {
-      const cur = stack.pop()
-      if(cur.val === key) {
-        keyNode = cur
-        break
+    if(!root) return root
+    // 删除节点
+    function getNewNode(oldNode) {
+      if(oldNode.left && !oldNode.right) return oldNode.left
+      if(oldNode.right && !oldNode.left) return oldNode.right
+      if(!oldNode.left && !oldNode.right) return null
+      let leftNode = oldNode.left
+      let rightNode = oldNode.right
+      let cur = rightNode
+      while(cur.left) {
+        cur = cur.left
       }
-      pre = cur
-      if(cur.right) stack.push(cur.right)
-      if(cur.left) stack.push(cur.left)
+      cur.left = leftNode
+      return rightNode
     }
-    const inLeft = keyNode.val === pre.left.val
-    // no sub node
-    if(!keyNode.left && !keyNode.right) {
-      if(inLeft) {
-        pre.left = null
-      } else {
-        pre.right = null
+    // 后序遍历
+    function traverse(node) {
+      let left = null
+      let right = null
+      if(node.left) {
+        left = traverse(node.left)
+        node.left = left
       }
-      return root
-    }
-    // one sub node
-    if(keyNode.left && !keyNode.right) {
-      if(inLeft) {
-        pre.left = keyNode.left
-      } else {
-        pre.right = keyNode.left
+      if(node.right) {
+        right = traverse(node.right)
+        node.right = right
       }
-      return root
-    }
-    if(!keyNode.left && keyNode.right) {
-      if(inLeft) {
-        pre.left = keyNode.right
-      } else {
-        pre.right = keyNode.right
+      
+      if(node.val === key) {
+        node = getNewNode(node)
       }
-      return root
+      return node
     }
-    const right = keyNode.right
-    const subcur = keyNode.left
-    while(subcur.right) {
-      subcur = subcur.right
-    }
-    subcur.right = right
-    pre.left = pre.left.left
-    return root
+    return traverse(root)
 };
 // @lc code=end
-
