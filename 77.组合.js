@@ -19,7 +19,7 @@ var combine = function(n, k) {
             result.push(path)
             return
         }
-        for(let i = start; i <= n; i++) {
+        for(let i = start; i + (k - path.length) < n; i++) {
             backTracking(n, k, i + 1, [...path, i])
         }
     }
