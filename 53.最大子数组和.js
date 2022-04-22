@@ -26,11 +26,15 @@
 //     return result
 // };
 
+// 运行速度勉强通过
+// 209/209 cases passed (9392 ms)
+// Your runtime beats 5.06 % of javascript submissions
+// Your memory usage beats 85 % of javascript submissions (49 MB)
 var maxSubArray = function(nums) {
     if(!nums.length) return 0
     let result = -Infinity
     for(let i = 0; i < nums.length;) {
-        // 小于0跳过
+        // 小于0跳过，从正数开始
         if(nums[i] <= 0) {
             if(nums[i] > result) result = nums[i]
             i++
@@ -39,10 +43,12 @@ var maxSubArray = function(nums) {
         let count = 0
         let nextIndex;
         for(let j = i; j < nums.length; j++) {
+            // 调整外层循环指针位置为首个负数的下一个
             if(!nextIndex && nums[j] < 0) {
                 nextIndex = j + 1
                 i = nextIndex
             }
+            // 内层循环全部为正数，结束循环
             if(!nextIndex && j === nums.length - 1) i = j + 1
             count+= nums[j]
             if(count > result) result = count
