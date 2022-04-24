@@ -11,7 +11,7 @@
  * @return {number}
  */
 var largestSumAfterKNegations = function(nums, k) {
-	nums.sort((a, b) => a - b)
+	nums.sort((a, b) => Math.abs(b) - Math.abs(a))
 	let sum = 0
 	for(let i = 0; i < nums.length; i++) {
 		if(k > 0) {
@@ -20,23 +20,13 @@ var largestSumAfterKNegations = function(nums, k) {
 				sum += -nums[i]
 			}
 			if(nums[i] >= 0) {
-				if(k % 2 === 1) {
-					if(i > 0 && Math.abs(nums[i-1]) < nums[i]) {
-						sum += -(Math.abs(nums[i-1]) * 2)
-						sum += nums[i]
-					} else {
-						sum += -nums[i]
-					}
-				} else {
-					sum += nums[i]
-				}
-				k = 0
+				sum += nums[i]
 			}
 		} else {
 			sum += nums[i]
 		}
 	}
-	if(k % 2 === 1) sum = sum - (-nums[nums.length - 1] * 2)
+	if(k % 2 === 1) sum = sum + (Math.abs(nums[nums.length - 1]) * -2)
 	return sum
 };
 // @lc code=end
