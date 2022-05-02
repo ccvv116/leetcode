@@ -9,7 +9,9 @@
  * @param {number} n
  * @return {number}
  */
-var climbStairs = function(n) {
+
+// dp
+var climbStairsDp = function(n) {
     const fib = (n, mem) => {
         if(mem[n]) return mem[n]
         if(n <= 2) return n
@@ -17,6 +19,15 @@ var climbStairs = function(n) {
         return mem[n]
     }
     return fib(n, {})
+};
+
+// 普通方法
+var climbStairs = function(n) {
+    let arr = [1, 2, 3]
+    for(let i = 2; i < n; i++) {
+        arr[i] = arr[i - 2] + arr[i - 1]
+    }
+    return arr[n - 1]
 };
 // @lc code=end
 
