@@ -14,7 +14,7 @@
 var uniquePaths = function(m, n) {
     const arr = new Array(m).fill(new Array(n))
     arr[0].fill(1)
-    arr.map((item) => item[0] = 1)
+    arr.forEach((item) => item[0] = 1)
     for(let i = 1; i < m; i++) {
         for(let j = 1; j < n; j++) {
             arr[i][j] = arr[i - 1][j] + arr[i][j - 1]
