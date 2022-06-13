@@ -34,13 +34,12 @@ var hasCycle = function(head) {
     if(!head) return false
     let fast = head
     let slow = head
-    do {
-        if(!fast || !fast.next) return false
+    while(fast) {
+        if(!fast.next) return false
         fast = fast.next.next
         slow = slow.next
         if(slow === fast) return true
-    } while ((slow !== head))
-
+    }
     return false
 };
 // @lc code=end
