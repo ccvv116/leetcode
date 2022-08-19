@@ -19,17 +19,17 @@
  */
 var findTilt = function(root) {
     if(!root) return 0
-    let reuslt = 0
+    let result = 0
     let traverse = (node) => {
         let leftVal = 0
         let rightVal = 0
         if(node.left) leftVal = traverse(node.left)
         if(node.right) rightVal = traverse(node.right)
-        reuslt += Math.abs(leftVal - rightVal)
+        result += Math.abs(leftVal - rightVal)
         return leftVal + rightVal + node.val
     }
     traverse(root)
-    return reuslt
+    return result
 };
 // @lc code=end
 
